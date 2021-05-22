@@ -1,0 +1,36 @@
+{% macro table_form(form, action="#", method="post", submit="submit") %}
+  <form method="{{ method }}" action="{{ action }}">
+    <table>
+      {% for field in form %}
+        {% set title=field.render_kw.placeholder or field.name %}
+        {% if field.type == "BooleanField" %}
+          {% set input_class="form-check-input" %}
+        {% elif field.type == "SelectField" %}
+          {% set input_class="form-select" %}
+        {% else %}
+          {% set input_class="form-control" %}
+        {% endif %}
+        <tr>
+          <td>{{ title }}</td>
+          <td>{{ field(class_=input_class, placeholder=title) }}
+            {% if field.type == "BooleanField" %}
+              &nbsp;{{ title }}&nbsp;
+            {% endif %}</td>
+        </tr>
+      {% endfor %}
+
+    </table>
+    <button class="btn btn-link" type="submit">{{ submit }}</button>
+
+
+  </form>
+  {% if form.errors %}
+    <ul>
+      {% for field_name, field_errors in form.errors|dictsort if field_errors %}
+        {% for error in field_errors %}
+          <li style="color: red">{{ form[field_name].name }}: {{ error }}</li>
+        {% endfor %}
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endmacro %}

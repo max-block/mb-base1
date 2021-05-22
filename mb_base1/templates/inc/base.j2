@@ -1,0 +1,53 @@
+{% from "inc/macros/inline_form.j2" import inline_form with context %}
+{% from "inc/macros/simple_form.j2" import simple_form with context %}
+{% from "inc/macros/table_form.j2" import table_form with context %}
+{% from "inc/macros/dropdown.j2" import dropdown with context %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="/static/bootstrap.min.css" rel="stylesheet">
+  <link rel="shortcut icon" href="/static/favicon.ico">
+  <script src="/static/tablesort.min.js"></script>
+  <script src="/static/tablesort.number.min.js"></script>
+  <script src="/static/tablesort.date.min.js"></script>
+  <title>{{ app_config.app_name }}</title>
+</head>
+<body class="container-fluid">
+
+<header>
+  <div class="d-flex mt-2 align-items-center">
+    <h3>{{ app_config.app_name }}</h3>
+    <div class="ms-5">
+      {% for path,title in app_config.main_menu.items() %}
+        <a href="{{ path }}" class="me-3">{{ title }}</a>
+      {% endfor %}
+      <a href="/system" class="me-3">system</a>
+
+    </div>
+    <div class="ms-3 me-5">{{ header_info() }}</div>
+    <a href="/logout" class="ms-5">logout</a>
+
+  </div>
+  <hr>
+  <br>
+</header>
+
+
+<main>
+  {% block content -%}
+  {%- endblock %}
+</main>
+
+
+<footer>
+  <br>
+  <hr>
+  app: v{{ app_config.app_version }} / mb_base1: v{{ app_config.mb_base1_version }} / server time: {{ now() | dt }}
+  <span class="ms-3">{{ footer_info() }}</span>
+</footer>
+
+<script src="/static/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{% macro dropdown(links, title="") %}
+  <div class="dropdown">
+    <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown">
+      {% if title %}{{ title }}
+      {% else %}☰
+      {% endif %}
+    </button>
+    <div class="dropdown-menu">
+      {% for link in links %}
+        <a class="dropdown-item" href="{{ link[0] }}" {% if link | length == 3%}onclick='return confirm("sure?"){% endif %}'>{{ link[1] }}</a>
+      {% endfor %}
+    </div>
+  </div>
+{% endmacro %}

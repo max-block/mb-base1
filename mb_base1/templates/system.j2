@@ -1,0 +1,113 @@
+{% extends "inc/base.j2" %}
+{% block content %}
+  <h3>system</h3><br>
+
+
+  <div class="d-flex">
+    <div class="me-5">
+      <section>
+        <h5>base</h5>
+        <table class="table table">
+          <tr>
+            <td>api</td>
+            <td></td>
+            <td><a href="/api">view</a></td>
+          </tr>
+          <tr>
+            <td>dconfig</td>
+            <td>{{ stats.dconfig }}</td>
+            <td><a href="/dconfig">view</a></td>
+          </tr>
+          <tr>
+            <td>dvalue</td>
+            <td>{{ stats.dvalue }}</td>
+            <td><a href="/dvalue">view</a></td>
+          </tr>
+          <tr>
+            <td>dlog</td>
+            <td>{{ stats.dlog }}</td>
+            <td><a href="/dlogs">view</a></td>
+          </tr>
+          <tr>
+            <td>logfile</td>
+            <td>{{ stats.logfile | filesizeformat }}</td>
+            <td>
+              <a href="/api/system/logfile">view</a>
+              <a href="/api-link?method=delete&url=/api/system/logfile" class="ms-2" {{ confirm }}>clean</a>
+            </td>
+          </tr>
+          <tr>
+            <td>telegram bot</td>
+            <td>{% if telegram_is_started %}started{% else %}stopped{% endif %}</td>
+            <td>
+              <a href="/api-link?method=post&url=/api/system/telegram-bot/start">start</a>
+              <a href="/api-link?method=post&url=/api/system/telegram-bot/stop" class="ms-2">stop</a>
+            </td>
+          </tr>
+          <tr>
+            <td>telegram channel</td>
+            <td></td>
+            <td><a href="/api-link?method=post&url=/api/system/test-telegram-message">test</a></td>
+          </tr>
+        </table>
+      </section>
+    </div>
+
+    <div class="ms-5">
+      <section>
+        <h5>db / {{ stats.db | length }}</h5>
+        <table class="table table-sm">
+          {% for k,v in stats.db.items() %}
+            <tr>
+              <td>{{ k }}</td>
+              <td>{{ v }}</td>
+            </tr>
+          {% endfor %}
+        </table>
+      </section>
+      <hr>
+      <br>
+
+      <section>
+        <h5>scheduler / {{ stats.scheduler | length }}</h5>
+        <table class="table table-sm">
+          <tr>
+            <td>func</td>
+            <td>interval</td>
+            <td>last_at</td>
+            <td>is_running</td>
+          </tr>
+          {% for j in stats.scheduler %}
+            <tr>
+              <td>{{ j.func.__qualname__ }}</td>
+              <td>{{ j.interval }}</td>
+              <td>{{ j.last_at | dt }}</td>
+              <td>{{ j.is_running | yes_no(is_colored=False) }}</td>
+            </tr>
+          {% endfor %}
+        </table>
+      </section>
+      <hr>
+      <br>
+
+      <section>
+        <h5>threads / {{ stats.threads | length }}</h5>
+        <table class="table table-sm">
+          <tr>
+            <td>name</td>
+            <td>daemon</td>
+            <td>func</td>
+          </tr>
+          {% for t in stats.threads %}
+            <tr>
+              <td>{{ t.name }}</td>
+              <td>{{ t.daemon | yes_no(is_colored=False) }}</td>
+              <td>{{ t.func }}</td>
+            </tr>
+          {% endfor %}
+        </table>
+      </section>
+    </div>
+  </div>
+
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends "inc/base.j2" %}
+{% block content %}
+
+  <div class="d-flex align-items-center">
+    <h3>dlogs</h3>
+    <a href="#delete" class="ms-5" data-bs-toggle="collapse">delete</a>
+  </div><br>
+
+
+
+  <div class="collapse" id="delete">
+    <div class="card">
+      <div class="card-body">
+        <table class="table table-sm">
+          <tr>
+            <th>category</th>
+            <th>count</th>
+            <th>delete</th>
+          </tr>
+          {% for k,v in category_stats.items() %}
+            <tr>
+              <td>{{ k }}</td>
+              <td>{{ v }}</td>
+              <td>
+                <a href="/api-link?method=delete&url=/api/dlogs/category/{{ k }}" {{ confirm }}>delete</a>
+              </td>
+            </tr>
+          {% endfor %}
+        </table>
+        <a href="/api-link?method=delete&url=/api/dlogs" {{ confirm }}>delete all</a>
+      </div>
+    </div>
+    <br>
+  </div>
+
+
+  {{ inline_form(form, submit="filter") }}<br>
+
+
+  <table class="table table-sm">
+    <tr>
+      <th>created_at</th>
+      <th>category</th>
+      <th>data</th>
+      <th>delete</th>
+      <th>view</th>
+    </tr>
+    {% for l in dlogs %}
+      <tr>
+        <td>{{ l.created_at | dt }}</td>
+        <td>{{ l.category }}</td>
+        <td>{{ l.data | dlog_data_truncate }}</td>
+        <td><a href="/api-link?method=delete&url=/api/dlogs/{{ l.id }}" onclick="return confirm('sure?')">delete</a></td>
+        <td><a href="/api/dlogs/{{ l.id }}">view</a></td>
+      </tr>
+    {% endfor %}
+  </table>
+{% endblock %}

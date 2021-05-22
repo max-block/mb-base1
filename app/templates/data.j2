@@ -1,0 +1,29 @@
+{% extends "inc/base.j2" %}
+{% block content %}
+  <div class="d-flex align-items-center">
+    <h3 class="me-5">data</h3>
+    <a href="/api-link?method=post&url=/api/data/generate">generate</a>
+  </div>
+  <br>
+
+  {{ inline_form(form, submit="filter") }}<br>
+
+  <table class="table table-sm">
+    <tr>
+      <th>created_at</th>
+      <th>status</th>
+      <th>value</th>
+      <th>delete</th>
+      <th>view</th>
+    </tr>
+    {% for d in data %}
+      <tr>
+        <td>{{ d.created_at | dt }}</td>
+        <td>{{ d.status | data_status }}</td>
+        <td>{{ d.value }}</td>
+        <td><a href="/api-link?url=/api/data/{{ d.id }}&method=delete" onclick="return confirm('sure?')">delete</a></td>
+        <td><a href="/api/data/{{ d.id }}">view</a></td>
+      </tr>
+    {% endfor %}
+  </table>
+{% endblock %}

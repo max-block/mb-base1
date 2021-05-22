@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="/static/bootstrap.min.css" rel="stylesheet">
+  <link rel="shortcut icon" href="/static/favicon.ico">
+  <title>{{ app_config.app_name }}</title>
+</head>
+<body>
+
+<main class="mt-5 ms-5">
+  <form class="row row-cols-lg-auto g-3 align-items-center" method="post">
+    <div class="col-12">
+      <div class="input-group">
+        <input type="password" class="form-control" placeholder="token" name="access_token">
+      </div>
+    </div>
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary">login</button>
+    </div>
+  </form>
+</main>
+
+<script src="/static/bootstrap.bundle.min.js"></script>
+</body>
+</html>

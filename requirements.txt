@@ -1,0 +1,11 @@
+fastapi==0.65.1
+Jinja2==3.0.1
+aiofiles==0.7.0
+WTForms==2.3.3
+python-multipart==0.0.5
+uvicorn[standard]==0.13.4
+gunicorn==20.1.0
+python-dotenv==0.17.1
+pyTelegramBotAPI==3.7.9
+pyee==8.1.0
+mb-commons[mongo]==0.1.0

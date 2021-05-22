@@ -1,0 +1,41 @@
+{% extends "inc/base.j2" %}
+{% block content %}
+  <div class="d-flex align-items-center">
+    <h3>dvalue</h3>
+    <a href="/api/dvalues/yaml" class="ms-5">view</a>
+  </div><br>
+
+
+  <table class="table table-sm">
+    <thead>
+    <tr>
+      <th>key</th>
+      <th>value</th>
+      <th>persistent</th>
+      <th>yaml</th>
+      <th>update</th>
+      <th>view</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for key, value in dvalue.items() %}
+      <tr>
+        <td title="{{ dvalue.descriptions[key] | escape }}">{{ key }}</td>
+        <td>
+          {{ value | string | truncate(119) }}
+        </td>
+        <td>{{ dvalue.persistent[key] | yes_no }}</td>
+        <td><a href="/api/dvalues/{{ key }}/yaml">yaml</a></td>
+        <td><a href="/update-dvalue/{{ key }}">update</a></td>
+        <td>
+          {% if dvalue.persistent[key] %}
+            <a href="/api/dvalues/{{ key }}">db</a>
+          {% endif %}
+          <a href="/api/dvalues/{{ key }}/value">value</a>
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock %}

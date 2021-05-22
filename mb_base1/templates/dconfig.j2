@@ -1,0 +1,42 @@
+{% extends "inc/base.j2" %}
+{% block content %}
+
+  <div class="d-flex align-items-center">
+    <h3>dconfig</h3>
+    <a href="/update-dconfig" class="ms-5 me-3">update</a>
+    <a href="/api/dconfigs/yaml">view</a>
+  </div><br>
+
+  <form method="post" action="/update-dconfig-admin">
+    <table class="table table-sm">
+      <tr>
+        <th>key</th>
+        <th>type</th>
+        <th style="width: 900px">value</th>
+      </tr>
+      {% for key, value in dconfig.items() %}
+        {% if key not in dconfig.hidden %}
+          <tr>
+            <td title="{{ dconfig.descriptions[key] | escape }}">
+              {{ key }}<br>
+              <small class="fw-light">{{ dconfig.descriptions[key] | escape }}</small>
+            </td>
+            <td>{{ dconfig.types[key].value }}</td>
+            <td>
+              {% if dconfig.types[key].value == "BOOLEAN" %}
+                <input type="checkbox" class="form-check-input" name="{{ key }}" {{ "checked" if value }}>
+              {% elif dconfig.types[key].value =="MULTILINE_STRING" %}
+                <textarea class="form-control" name="{{ key }}" rows="5">{{ value }}</textarea>
+              {% else %}
+                <input class="form-control" name="{{ key }}" value="{{ value }}">
+              {% endif %}
+            </td>
+          </tr>
+        {% endif %}
+      {% endfor %}
+    </table>
+    <button class="btn btn-link">save</button>
+  </form>
+
+
+{% endblock %}
