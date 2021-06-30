@@ -1,4 +1,3 @@
 [flake8]
 max-line-length = 130
 ignore = A003,B008
-banned-modules = pysnooper = remove debugging code!

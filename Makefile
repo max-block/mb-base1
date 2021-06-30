@@ -12,7 +12,8 @@ dist: clean
 upload: dist
 	test -z "$(git status --porcelain)" # don't upload if the repo is dirty
 	twine upload dist/*
-	g at v$(VERSION)
+	git tag -a 'v$(VERSION)' -m 'v$(VERSION)'
+	git push origin v$(VERSION)
 
 
 dev:
