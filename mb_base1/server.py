@@ -65,7 +65,12 @@ class Server:
         ]
 
         for r in base_routers + routers:
-            self.server.include_router(r.router, prefix=r.prefix, dependencies=[Depends(self._get_api_key())], tags=[r.tag])
+            self.server.include_router(
+                r.router,
+                prefix=r.prefix,
+                dependencies=[Depends(self._get_api_key())],
+                tags=[r.tag],
+            )
 
     def _configure_server(self):
         @self.server.exception_handler(Exception)

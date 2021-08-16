@@ -98,7 +98,9 @@ class DConfigService:
             if dv:
                 cls.dconfig_storage[attr.key] = cls.get_type_value(dv.type, dv.value).ok
             else:  # create rows if not exists
-                cls.dconfig_collection.insert_one(DConfig(_id=attr.key, type=type_, value=cls.get_str_value(type_, attr.value)))
+                cls.dconfig_collection.insert_one(
+                    DConfig(_id=attr.key, type=type_, value=cls.get_str_value(type_, attr.value)),
+                )
                 cls.dconfig_storage[attr.key] = attr.value
 
         # remove rows which not in settings.DCONFIG
