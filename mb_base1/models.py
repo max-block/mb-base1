@@ -26,6 +26,19 @@ class DConfig(MongoModel):
     created_at: datetime = Field(default_factory=utc_now)
 
     __collection__ = "dconfig"
+    __validator__ = {
+        "$jsonSchema": {
+            "required": ["type", "value", "updated_at", "created_at"],
+            "additionalProperties": False,
+            "properties": {
+                "_id": {"bsonType": "string"},
+                "type": {"enum": ["STRING", "MULTILINE_STRING", "DATETIME", "BOOLEAN", "INTEGER", "FLOAT", "DECIMAL"]},
+                "value": {"bsonType": "string"},
+                "updated_at": {"bsonType": ["date", "null"]},
+                "created_at": {"bsonType": "date"},
+            },
+        },
+    }
 
 
 class DValue(MongoModel):
@@ -35,6 +48,18 @@ class DValue(MongoModel):
     created_at: datetime = Field(default_factory=utc_now)
 
     __collection__ = "dvalue"
+    __validator__ = {
+        "$jsonSchema": {
+            "required": ["value", "updated_at", "created_at"],
+            "additionalProperties": False,
+            "properties": {
+                "_id": {"bsonType": "string"},
+                "value": {"bsonType": "string"},
+                "updated_at": {"bsonType": ["date", "null"]},
+                "created_at": {"bsonType": "date"},
+            },
+        },
+    }
 
 
 class DLog(MongoModel):
@@ -45,3 +70,15 @@ class DLog(MongoModel):
 
     __collection__ = "dlog"
     __indexes__ = ["category", "created_at"]
+    __validator__ = {
+        "$jsonSchema": {
+            "required": ["category", "data", "created_at"],
+            "additionalProperties": False,
+            "properties": {
+                "_id": {"bsonType": "objectId"},
+                "category": {"bsonType": "string"},
+                "data": {},
+                "created_at": {"bsonType": "date"},
+            },
+        },
+    }

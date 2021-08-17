@@ -94,6 +94,7 @@ class Server:
 
         @self.server.on_event("shutdown")
         def shutdown_server():
+            self.app.logger.debug("server shutdown")
             self.telegram.stop()
             self.app.shutdown()
 

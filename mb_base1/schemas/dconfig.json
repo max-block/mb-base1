@@ -1,0 +1,12 @@
+{
+  "$jsonSchema": {
+    "required": ["type", "value", "updated_at", "created_at"],
+    "additionalProperties": false,
+    "properties": {
+      "type": {"enum": ["STRING", "MULTILINE_STRING", "DATETIME", "BOOLEAN", "INTEGER", "FLOAT", "DECIMAL"]},
+      "value": {"bsonType": "string"},
+      "updated_at": {"bsonType": ["date", "null"]},
+      "created_at": {"bsonType": "date"}
+    }
+  }
+}

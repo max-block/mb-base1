@@ -21,3 +21,15 @@ class Data(MongoModel):
 
     __collection__ = "data"
     __indexes__ = ["status", "created_at"]
+    __validator__ = {
+        "$jsonSchema": {
+            "required": ["status", "value", "created_at"],
+            "additionalProperties": False,
+            "properties": {
+                "_id": {"bsonType": "objectId"},
+                "status": {"enum": ["OK", "ERROR"]},
+                "value": {"bsonType": "int"},
+                "created_at": {"bsonType": "date"},
+            },
+        },
+    }
