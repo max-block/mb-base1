@@ -1,6 +1,6 @@
+set dotenv-load := false
 version := `python3 setup.py --version | tr '+' '-'`
 default: (dev)
-
 
 clean:
 	rm -rf .pytest_cache build dist *.egg-info
@@ -13,8 +13,8 @@ dist: clean
 publish: dist
 	git diff-index --quiet HEAD
 	twine upload dist/*
-	git tag -a '{{version}}' -m '{{version}}'
-	git push origin {{version}}
+	git tag -a '{{version}}' -m 'v{{version}}'
+	git push origin v{{version}}
 
 
 dev:
