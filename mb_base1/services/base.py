@@ -1,6 +1,6 @@
-from collections import Callable
 from dataclasses import dataclass
 from logging import Logger
+from typing import Callable
 
 from app.config import DConfigSettings, DValueSettings
 from mb_base1.config import BaseAppConfig
