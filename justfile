@@ -13,9 +13,9 @@ dist: clean
 publish: dist
 	git diff-index --quiet HEAD
 	twine upload dist/*
-	git tag -a '{{version}}' -m 'v{{version}}'
+	git tag -a 'v{{version}}' -m 'v{{version}}'
 	git push origin v{{version}}
 
 
 dev:
-	uvicorn --port 3000 --log-level warning app.main:server
+	uvicorn --reload --port 3000 --log-level warning app.main:server
