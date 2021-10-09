@@ -15,7 +15,7 @@ def data_status(status: DataStatus):
 
 
 def header_info(_app: App):
-    info = ""
+    info = "<span style='color: red'>bbb</span>"
     return Markup(info)
 
 
@@ -24,4 +24,9 @@ def footer_info(_app: App):
     return Markup(info)
 
 
-custom_jinja = CustomJinja(header_info=header_info, footer_info=footer_info, filters={"data_status": data_status})
+custom_jinja = CustomJinja(
+    header_info=header_info,
+    header_info_new_line=False,
+    footer_info=footer_info,
+    filters={"data_status": data_status},
+)

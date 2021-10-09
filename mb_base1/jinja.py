@@ -59,7 +59,7 @@ def json_url_encode(data: dict) -> str:
     return json.dumps(data)
 
 
-def nformat(value, prefix="", suffix="", separator="_", hide_zero=True, digits=2):
+def nformat(value, prefix="", suffix="", separator="", hide_zero=True, digits=2):
     if value is None or value == "":
         return ""
     if float(value) == 0:
@@ -97,6 +97,7 @@ def form_choices(choices: Union[list[str], Type[Enum]], title=""):
 @dataclass
 class CustomJinja:
     header_info: Optional[Callable] = None
+    header_info_new_line: bool = False
     footer_info: Optional[Callable] = None
     filters: Optional[dict] = None
     globals: Optional[dict] = None
@@ -134,6 +135,7 @@ class Templates:
 
         env.globals["header_info"] = partial(header_info, app)
         env.globals["footer_info"] = partial(footer_info, app)
+        env.globals["header_info_new_line"] = custom_jinja.header_info_new_line
 
         self.env = env
 

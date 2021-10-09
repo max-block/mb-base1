@@ -26,10 +26,14 @@
       <a href="/system" class="me-3">system</a>
 
     </div>
-    <div class="ms-3 me-5">{{ header_info() }}</div>
+    {% if not header_info_new_line %}
+      <div class="ms-3 me-5">{{ header_info() }}</div>
+    {% endif %}
     <a href="/logout" class="ms-5">logout</a>
-
   </div>
+  {% if header_info_new_line %}
+    <div>{{ header_info() }}</div>
+  {% endif %}
   <hr>
   <br>
 </header>

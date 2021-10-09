@@ -20,7 +20,7 @@
       <tr>
         <td>{{ d.created_at | dt }}</td>
         <td>{{ d.status | data_status }}</td>
-        <td>{{ d.value }}</td>
+        <td>{{ d.value | n }}</td>
         <td><a href="/api-link?url=/api/data/{{ d.id }}&method=delete" onclick="return confirm('sure?')">delete</a></td>
         <td><a href="/api/data/{{ d.id }}">view</a></td>
       </tr>
