@@ -6,6 +6,6 @@ python-multipart==0.0.5
 uvicorn[standard]==0.14.0
 gunicorn==20.1.0
 python-dotenv==0.19.1
-pyTelegramBotAPI==4.1.0
+pyTelegramBotAPI==4.1.1
 pyee==8.2.2
 mb-commons

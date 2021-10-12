@@ -8,14 +8,17 @@
 
   {{ inline_form(form, submit="filter") }}<br>
 
-  <table class="table table-sm">
+  <table class="table table-sm" id="data">
+    <thead>
     <tr>
-      <th>created_at</th>
+      <th data-sort-method="date">created_at</th>
       <th>status</th>
       <th>value</th>
       <th>delete</th>
       <th>view</th>
     </tr>
+    </thead>
+    <tbody>
     {% for d in data %}
       <tr>
         <td>{{ d.created_at | dt }}</td>
@@ -25,5 +28,8 @@
         <td><a href="/api/data/{{ d.id }}">view</a></td>
       </tr>
     {% endfor %}
+    </tbody>
   </table>
+
+  {{ tablesort("data") }}
 {% endblock %}
