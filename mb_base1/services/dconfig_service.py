@@ -108,12 +108,19 @@ class DConfigService:
         return cls.dconfig_storage
 
     @classmethod
+    def update_multiline(cls, key: str, value: str):
+        value = value.replace("\r", "")
+        cls.dconfig_collection.update_by_id(key, {"$set": {"value": value, "updated_at": utc_now()}})
+        cls.dconfig_storage[key] = value
+        return True
+
+    @classmethod
     def update(cls, data: dict[str, str]) -> bool:
         result = True
         for key, str_value in data.items():
             if key in cls.dconfig_storage:
                 str_value = str_value or ""  # for BOOLEAN type (checkbox)
-                str_value = str_value.replace("\r", "")  # for MULTILINE_STRING (textarea do it)
+                str_value = str_value.replace("\r", "")  # for MULTILINE (textarea do it)
                 type_value_res = cls.get_type_value(cls.dconfig_storage.types[key], str_value.strip())
                 if type_value_res.is_ok():
                     cls.dconfig_collection.update_by_id(key, {"$set": {"value": str_value, "updated_at": utc_now()}})
@@ -141,7 +148,7 @@ class DConfigService:
     @staticmethod
     def get_type(value) -> DConfigType:
         if type(value) is str:
-            return DConfigType.MULTILINE_STRING if "\n" in value else DConfigType.STRING
+            return DConfigType.MULTILINE if "\n" in value else DConfigType.STRING
         elif type(value) is int:
             return DConfigType.INTEGER
         elif type(value) is float:
@@ -166,7 +173,7 @@ class DConfigService:
                 return Result(ok=Decimal(str_value))
             elif type_ == DConfigType.STRING:
                 return Result(ok=str_value)
-            elif type_ == DConfigType.MULTILINE_STRING:
+            elif type_ == DConfigType.MULTILINE:
                 return Result(ok=str_value.replace("\r", ""))
             else:
                 return Result(ok=f"unsupported type: {type_}")

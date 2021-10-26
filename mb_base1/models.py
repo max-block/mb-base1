@@ -10,7 +10,7 @@ from pydantic import Field
 @unique
 class DConfigType(str, Enum):
     STRING = "STRING"
-    MULTILINE_STRING = "MULTILINE_STRING"
+    MULTILINE = "MULTILINE"
     DATETIME = "DATETIME"
     BOOLEAN = "BOOLEAN"
     INTEGER = "INTEGER"
@@ -32,7 +32,7 @@ class DConfig(MongoModel):
             "additionalProperties": False,
             "properties": {
                 "_id": {"bsonType": "string"},
-                "type": {"enum": ["STRING", "MULTILINE_STRING", "DATETIME", "BOOLEAN", "INTEGER", "FLOAT", "DECIMAL"]},
+                "type": {"enum": ["STRING", "MULTILINE", "DATETIME", "BOOLEAN", "INTEGER", "FLOAT", "DECIMAL"]},
                 "value": {"bsonType": "string"},
                 "updated_at": {"bsonType": ["date", "null"]},
                 "created_at": {"bsonType": "date"},

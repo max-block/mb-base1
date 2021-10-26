@@ -25,6 +25,10 @@ class UpdateValueForm(Form):  # for dconfig and dvalue
     multiline_string = BooleanField()
 
 
+class UpdateDConfigMultilineForm(Form):
+    value = TextAreaField(render_kw={"rows": 20})
+
+
 def init(app: BaseApp, templates: Templates, telegram: BaseTelegram) -> APIRouter:
     router = APIRouter()
 
@@ -42,6 +46,11 @@ def init(app: BaseApp, templates: Templates, telegram: BaseTelegram) -> APIRoute
     def update_dconfig_page():
         form = ImportDConfigForm()
         return templates.render("update_dconfig.j2", md(form))
+
+    @router.get("/update-dconfig-multiline/{key}", response_class=HTMLResponse)
+    def update_dconfig_multiline_page(key):
+        form = UpdateDConfigMultilineForm(data={"value": app.dconfig.get(key)})
+        return templates.render("update_dconfig_multiline.j2", md(form, key))
 
     @router.get("/dvalue", response_class=HTMLResponse)
     def dvalue_page():
@@ -79,5 +88,12 @@ def init(app: BaseApp, templates: Templates, telegram: BaseTelegram) -> APIRoute
         form = UpdateValueForm(form_data)
         app.dvalue_service.set_dvalue_yaml_value(key, form.yaml_value.data, form.multiline_string.data)
         return redirect("/dvalue")
+
+    @router.post("/update-dconfig-multiline/{key}")
+    def update_dconfig_multiline(key, form_data=depends_form):
+        form = UpdateDConfigMultilineForm(form_data)
+        if form.validate():
+            return app.dconfig_service.update_multiline(key, form.data["value"])
+        return {"errors": form.errors}
 
     return router
