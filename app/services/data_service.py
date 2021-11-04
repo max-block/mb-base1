@@ -13,4 +13,5 @@ class DataService(AppService):
         value = random.randint(0, 1_000_000)
         self.dlog("data_generated", {"status": status, "value": value, "large-data": "abc" * 100})
         self.send_telegram_message(f"a new data: {value}")
+
         return self.db.data.insert_one(Data(status=status, value=value))
