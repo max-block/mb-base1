@@ -35,7 +35,7 @@ def init(app: BaseApp, telegram: BaseTelegram) -> APIRouter:
 
     @router.post("/test-telegram-message")
     def test_telegram_message():
-        message = "bla bla bla " * 1000
+        message = "bla bla bla " * 10
         return app.send_telegram_message(message)
 
     @router.get("/telegram-bot")

@@ -1,4 +1,5 @@
 import json
+import time
 from dataclasses import asdict, is_dataclass
 from datetime import date, datetime
 from decimal import Decimal
@@ -15,6 +16,7 @@ from starlette.responses import PlainTextResponse, RedirectResponse, Response
 from starlette.status import HTTP_303_SEE_OTHER
 from telebot import TeleBot
 from telebot.util import split_string
+from wrapt import synchronized
 
 
 class CustomJSONEncoder(JSONEncoder):
@@ -66,11 +68,16 @@ def get_registered_attributes(dconfig):
     return [x for x in dir(dconfig) if not x.startswith("_")]
 
 
+@synchronized
 def send_telegram_message(token: str, chat_id: int, message: str) -> Result[bool]:
+    bot = TeleBot(token)
     try:
-        bot = TeleBot(token)
         for text in split_string(message, 4096):
             bot.send_message(chat_id, text)
+            time.sleep(1)
         return Result(ok=True)
     except Exception as e:
         return Result(error=str(e))
+    finally:
+        bot.stop_bot()
+        bot.close()

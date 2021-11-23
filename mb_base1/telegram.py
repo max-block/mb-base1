@@ -87,6 +87,9 @@ class BaseTelegram:
         for text in split_string(message, 4096):
             self.bot.send_message(chat_id, text)  # type:ignore
 
+    def send_to_channel(self, message: str):
+        self._send_message(self.app.dconfig.get("telegram_chat_id"), message)  # type:ignore
+
     @staticmethod
     def auth(*, admins: list[int], bot: TeleBot):
         def outer(func):

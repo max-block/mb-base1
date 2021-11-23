@@ -36,19 +36,21 @@
               <a href="/api-link?method=delete&url=/api/system/logfile" class="ms-2" {{ confirm }}>clean</a>
             </td>
           </tr>
-          <tr>
-            <td>telegram bot</td>
-            <td>{% if telegram_is_started %}started{% else %}stopped{% endif %}</td>
-            <td>
-              <a href="/api-link?method=post&url=/api/system/telegram-bot/start">start</a>
-              <a href="/api-link?method=post&url=/api/system/telegram-bot/stop" class="ms-2">stop</a>
-            </td>
-          </tr>
-          <tr>
-            <td>telegram channel</td>
-            <td></td>
-            <td><a href="/api-link?method=post&url=/api/system/test-telegram-message">test</a></td>
-          </tr>
+          {% if "telegram_token" in dconfig %}
+            <tr>
+              <td>telegram bot</td>
+              <td>{% if telegram_is_started %}started{% else %}stopped{% endif %}</td>
+              <td>
+                <a href="/api-link?method=post&url=/api/system/telegram-bot/start">start</a>
+                <a href="/api-link?method=post&url=/api/system/telegram-bot/stop" class="ms-2">stop</a>
+              </td>
+            </tr>
+            <tr>
+              <td>telegram channel</td>
+              <td></td>
+              <td><a href="/api-link?method=post&url=/api/system/test-telegram-message">test</a></td>
+            </tr>
+          {% endif %}
         </table>
       </section>
     </div>
