@@ -7,6 +7,7 @@ from wtforms import BooleanField, Form, IntegerField, SelectField, TextAreaField
 
 from mb_base1.app import BaseApp
 from mb_base1.jinja import Templates, form_choices
+from mb_base1.models import DConfigType
 from mb_base1.telegram import BaseTelegram
 from mb_base1.utils import depends_form, redirect
 
@@ -76,7 +77,9 @@ def init(app: BaseApp, templates: Templates, telegram: BaseTelegram) -> APIRoute
 
     @router.post("/update-dconfig-admin")
     def update_dconfig_admin(form_data=depends_form):
-        data = {x: form_data.get(x) for x in app.dconfig.get_non_hidden_keys()}
+        data = {
+            x: form_data.get(x) for x in app.dconfig.get_non_hidden_keys() if app.dconfig.get_type(x) != DConfigType.MULTILINE
+        }
         return app.dconfig_service.update(data)
 
     @router.post("/update-dconfig-yaml")

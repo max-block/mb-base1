@@ -67,6 +67,9 @@ class DConfigStorage(dict):
     def get_non_hidden_keys(self):
         return self.keys() - self.hidden
 
+    def get_type(self, key: str):
+        return self.types[key]
+
 
 @dataclass
 class DConfigInitValue:
