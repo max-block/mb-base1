@@ -2,8 +2,8 @@ from datetime import datetime
 from enum import Enum, unique
 from typing import Optional
 
-from mb_commons import utc_now
-from mb_commons.mongo import MongoModel, ObjectIdStr
+from mb_std import utc_now
+from mb_std.mongo import MongoModel, ObjectIdStr
 from pydantic import Field
 
 

@@ -2,7 +2,7 @@ import os
 import threading
 import tracemalloc
 
-from mb_commons import Scheduler
+from mb_std import Scheduler
 from pymongo.database import Database
 
 from app.config import AppConfig

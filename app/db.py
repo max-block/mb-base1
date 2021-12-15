@@ -1,4 +1,4 @@
-from mb_commons.mongo import MongoCollection
+from mb_std.mongo import MongoCollection
 from pymongo.database import Database
 
 from app.models import Data

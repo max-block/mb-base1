@@ -1,6 +1,9 @@
 {% extends "inc/base.j2" %}
 {% block content %}
-  <h3>update dconfig multiline / {{ key }}</h3><br>
+
+  <div class="menu">
+    <h3>update dconfig multiline / {{ key }}</h3>
+  </div>
 
   {{ simple_form(form, action="/update-dconfig-multiline/"+key, submit="update") }}
 

@@ -1,6 +1,6 @@
 from fastapi import APIRouter
-from mb_commons import md
-from mb_commons.mongo import make_query
+from mb_std import md
+from mb_std.mongo import make_query
 from starlette.responses import HTMLResponse
 from wtforms import Form, IntegerField, SelectField
 

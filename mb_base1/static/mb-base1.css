@@ -1,0 +1,13 @@
+.menu {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2em;
+}
+
+.menu h3 {
+    margin-right: 1.5em;
+}
+
+.menu a{
+    padding-left: 1em;
+}

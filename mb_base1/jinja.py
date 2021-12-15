@@ -7,10 +7,10 @@ from typing import Callable, Optional, Type, Union
 
 from jinja2 import ChoiceLoader, Environment, PackageLoader
 from markupsafe import Markup
+from mb_std.json import CustomJSONEncoder
 from starlette.responses import HTMLResponse
 
 from mb_base1.app import BaseApp
-from mb_base1.utils import CustomJSONEncoder
 
 
 def dlog_data_truncate(data) -> str:

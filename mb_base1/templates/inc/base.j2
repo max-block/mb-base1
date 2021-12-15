@@ -2,17 +2,15 @@
 {% from "inc/macros/simple_form.j2" import simple_form with context %}
 {% from "inc/macros/table_form.j2" import table_form with context %}
 {% from "inc/macros/dropdown.j2" import dropdown with context %}
-{% from "inc/macros/tablesort.j2" import tablesort with context %}
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="/static/bootstrap.min.css" rel="stylesheet">
+  <link href="/static/mb-base1.css" rel="stylesheet">
   <link rel="shortcut icon" href="/static/favicon.ico">
-  <script src="/static/tablesort.min.js"></script>
-  <script src="/static/tablesort.number.min.js"></script>
-  <script src="/static/tablesort.date.min.js"></script>
+  <script src="/static/sortable.min.js"></script>
   <title>{{ app_config.app_name }}</title>
 </head>
 <body class="container-fluid">
@@ -36,7 +34,6 @@
     <div>{{ header_info() }}</div>
   {% endif %}
   <hr>
-  <br>
 </header>
 
 

@@ -1,9 +1,9 @@
 import logging
 import os
 
-from mb_commons import Scheduler
-from mb_commons.logging import init_logger
-from mb_commons.mongo import MongoCollection, MongoConnection
+from mb_std import Scheduler
+from mb_std.logging import init_logger
+from mb_std.mongo import MongoCollection, MongoConnection
 from pymongo.database import Database
 
 from app.config import AppConfig, DConfigSettings, DValueSettings

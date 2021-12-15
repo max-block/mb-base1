@@ -1,11 +1,10 @@
 {% extends "inc/base.j2" %}
 {% block content %}
-
-  <div class="d-flex align-items-center">
-    <h3>dconfig</h3>
-    <a href="/update-dconfig" class="me-3 ms-3">update</a>
-    <a href="/api/dconfigs/yaml" class="me-3">view</a>
-  </div><br>
+  <div class="menu">
+    <h2>dconfig</h2>
+    <a href="/update-dconfig">update</a>
+    <a href="/api/dconfigs/yaml">view</a>
+  </div>
 
   <form method="post" action="/update-dconfig-admin">
     <table class="table table-sm">

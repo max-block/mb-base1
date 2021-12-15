@@ -9,7 +9,7 @@ from fastapi.openapi.docs import get_swagger_ui_html
 from fastapi.openapi.models import APIKey
 from fastapi.openapi.utils import get_openapi
 from fastapi.security import APIKeyCookie, APIKeyHeader, APIKeyQuery
-from mb_commons import hrequest
+from mb_std import hrequest
 from starlette import status
 from starlette.requests import Request
 from starlette.responses import JSONResponse, PlainTextResponse, RedirectResponse
@@ -19,6 +19,7 @@ from starlette.status import HTTP_403_FORBIDDEN
 from mb_base1.app import BaseApp
 from mb_base1.errors import UserError
 from mb_base1.jinja import Templates
+from mb_base1.json_encoder import add_custom_encodings
 from mb_base1.routers import base_ui_router, dconfig_router, dlog_router, dvalue_router, system_router
 from mb_base1.telegram import BaseTelegram
 
@@ -100,6 +101,7 @@ class Server:
 
         current_dir = Path(__file__).parent.absolute()
         self.server.mount("/static", StaticFiles(directory=current_dir.joinpath("static")), name="static")
+        add_custom_encodings()
 
     def _configure_openapi(self):
         @self.server.get("/openapi.json", tags=["openapi"], include_in_schema=False)
@@ -151,6 +153,40 @@ class Server:
             response.delete_cookie(self.api_key_name, domain=self.app.app_config.domain)
             return response
 
+        @self.server.get("/api-post/{url:path}")
+        def api_post(url, request: Request, api_key: APIKey = Depends(self._get_api_key())):
+            base_url = str(request.base_url)
+            if not base_url.endswith("/"):
+                base_url = base_url + "/"
+            url = base_url + "api/" + url
+            if request.query_params:
+                q = ""
+                for k, v in request.query_params.items():
+                    q += f"{k}={v}&"
+                url += f"?{q}"
+            headers = {self.api_key_name: api_key}
+            res = hrequest(url, method="post", headers=headers, params=dict(request.query_params), timeout=600)
+            if res.json:
+                return res.json
+            return res.body
+
+        @self.server.get("/api-delete/{url:path}")
+        def api_delete(url, request: Request, api_key: APIKey = Depends(self._get_api_key())):
+            base_url = str(request.base_url)
+            if not base_url.endswith("/"):
+                base_url = base_url + "/"
+            url = base_url + "api/" + url
+            if request.query_params:
+                q = ""
+                for k, v in request.query_params.items():
+                    q += f"{k}={v}&"
+                url += f"?{q}"
+            headers = {self.api_key_name: api_key}
+            res = hrequest(url, method="delete", headers=headers, params=dict(request.query_params), timeout=600)
+            if res.json:
+                return res.json
+            return res.body
+
         @self.server.get("/api-link")
         def api_redirect(
             request: Request,
@@ -159,6 +195,7 @@ class Server:
             data: Optional[str] = None,
             api_key: APIKey = Depends(self._get_api_key()),
         ):
+            """Deprecated"""
             method = method.lower()
             headers = {self.api_key_name: api_key}
             url = str(request.base_url).removesuffix("/") + url
@@ -168,7 +205,7 @@ class Server:
             params = None
             if data:
                 params = json.loads(data)
-            res = hrequest(url, method=method, headers=headers, params=params, json_params=True, timeout=600)
+            res = hrequest(url, method=method, headers=headers, params=params, timeout=600)
             if res.json:
                 return res.json
             return res.body

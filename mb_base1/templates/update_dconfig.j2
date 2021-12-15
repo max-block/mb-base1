@@ -1,6 +1,9 @@
 {% extends "inc/base.j2" %}
 {% block content %}
-  <h3>update dconfig</h3><br>
+
+  <div class="menu">
+    <h3>update dconfig</h3>
+  </div>
 
   {{ simple_form(form, action="/update-dconfig-yaml", submit="update") }}
 

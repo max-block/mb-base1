@@ -6,8 +6,8 @@ import pickle  # nosec
 from typing import Any
 
 import yaml
-from mb_commons import utc_now
-from mb_commons.mongo import MongoCollection
+from mb_std import utc_now
+from mb_std.mongo import MongoCollection
 from wrapt import synchronized
 
 from mb_base1.errors import UnregisteredDValueError
