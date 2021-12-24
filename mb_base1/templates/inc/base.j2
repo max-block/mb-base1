@@ -38,6 +38,11 @@
 
 
 <main>
+
+  {% for message in get_flash_messages(request) %}
+    <div class="alert {{ "alert-danger" if message.error else "alert-success" }}">{{ message.message }}</div>
+  {% endfor %}
+
   {% block content -%}
   {%- endblock %}
 </main>

@@ -11,6 +11,8 @@ from fastapi.openapi.utils import get_openapi
 from fastapi.security import APIKeyCookie, APIKeyHeader, APIKeyQuery
 from mb_std import hrequest
 from starlette import status
+from starlette.middleware import Middleware
+from starlette.middleware.sessions import SessionMiddleware
 from starlette.requests import Request
 from starlette.responses import JSONResponse, PlainTextResponse, RedirectResponse
 from starlette.staticfiles import StaticFiles
@@ -46,6 +48,7 @@ class Server:
             redoc_url=None,
             openapi_url=None,
             openapi_tags=app.app_config.tags_metadata,
+            middleware=[Middleware(SessionMiddleware, secret_key=self.app.app_config.access_token)],
         )
         self.templates = templates
         self._configure_server()
@@ -131,8 +134,8 @@ class Server:
             return response
 
         @self.server.get("/login", tags=["auth"])
-        async def route_login_page():
-            return self.templates.render("login.j2")
+        async def route_login_page(req: Request):
+            return self.templates.render(req, "login.j2")
 
         @self.server.post("/login", tags=["auth"])
         async def route_login_action(access_token: str = Form(...)):

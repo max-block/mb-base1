@@ -8,6 +8,7 @@ from typing import Callable, Optional, Type, Union
 from jinja2 import ChoiceLoader, Environment, PackageLoader
 from markupsafe import Markup
 from mb_std.json import CustomJSONEncoder
+from starlette.requests import Request
 from starlette.responses import HTMLResponse
 
 from mb_base1.app import BaseApp
@@ -110,6 +111,7 @@ def _default_info(_app):
 class Templates:
     def __init__(self, app: BaseApp, custom_jinja: CustomJinja):
         env = Environment(loader=ChoiceLoader([PackageLoader("mb_base1"), PackageLoader("app")]))  # nosec
+        env.globals["get_flash_messages"] = get_flash_messages
         env.filters["timestamp"] = timestamp
         env.filters["dt"] = timestamp
         env.filters["empty"] = empty
@@ -139,8 +141,20 @@ class Templates:
 
         self.env = env
 
-    def render(self, template_name: str, data=None) -> HTMLResponse:
+    def render(self, request: Request, template_name: str, data: Optional[dict] = None) -> HTMLResponse:
         if not data:
-            data = {}
+            data = {"request": request}
+        else:
+            data["request"] = request
         html_content = self.env.get_template(template_name).render(data)
         return HTMLResponse(content=html_content, status_code=200)
+
+
+def flash(request: Request, message: str, is_error=False) -> None:
+    if "_messages" not in request.session:
+        request.session["_messages"] = []
+    request.session["_messages"].append({"message": message, "error": is_error})
+
+
+def get_flash_messages(request: Request):
+    return request.session.pop("_messages") if "_messages" in request.session else []
