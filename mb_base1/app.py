@@ -16,12 +16,7 @@ from mb_base1.utils import send_telegram_message
 
 
 class BaseApp:
-    def __init__(
-        self,
-        app_config: AppConfig,
-        dconfig_settings: DConfigSettings,
-        dvalue_settings: DValueSettings,
-    ):
+    def __init__(self, app_config: AppConfig, dconfig_settings: DConfigSettings, dvalue_settings: DValueSettings):
         self.app_config = app_config
         self.logger = init_logger(
             "app",
@@ -56,7 +51,7 @@ class BaseApp:
         token = self.dconfig.get("telegram_token")
         chat_id = self.dconfig.get("telegram_chat_id")
         if token and chat_id:
-            return send_telegram_message(token, chat_id, message)
+            send_telegram_message(token, chat_id, message)
 
     def init_scheduler(
         self,

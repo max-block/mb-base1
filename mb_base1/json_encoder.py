@@ -1,5 +1,5 @@
 from bson import ObjectId
-from pydantic.json import ENCODERS_BY_TYPE
+from pydantic.json import ENCODERS_BY_TYPE  # noqa
 from pymongo.results import DeleteResult, InsertManyResult, InsertOneResult, UpdateResult
 
 
