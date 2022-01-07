@@ -1,6 +1,5 @@
 from datetime import datetime
 from enum import Enum, unique
-from typing import Optional
 
 from mb_std import utc_now
 from mb_std.mongo import MongoModel, ObjectIdStr
@@ -14,7 +13,7 @@ class DataStatus(str, Enum):
 
 
 class Data(MongoModel):
-    id: Optional[ObjectIdStr] = Field(None, alias="_id")
+    id: ObjectIdStr | None = Field(None, alias="_id")
     status: DataStatus
     value: int
     created_at: datetime = Field(default_factory=utc_now)

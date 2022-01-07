@@ -1,6 +1,6 @@
 from datetime import datetime
 from enum import Enum, unique
-from typing import Any, Optional
+from typing import Any
 
 from mb_std import utc_now
 from mb_std.mongo import MongoModel, ObjectIdStr
@@ -22,7 +22,7 @@ class DConfig(MongoModel):
     id: str = Field(..., alias="_id")
     type: DConfigType
     value: str
-    updated_at: Optional[datetime]
+    updated_at: datetime | None = None
     created_at: datetime = Field(default_factory=utc_now)
 
     __collection__ = "dconfig"
@@ -44,7 +44,7 @@ class DConfig(MongoModel):
 class DValue(MongoModel):
     id: str = Field(..., alias="_id")
     value: str
-    updated_at: Optional[datetime]
+    updated_at: datetime | None
     created_at: datetime = Field(default_factory=utc_now)
 
     __collection__ = "dvalue"
@@ -63,9 +63,9 @@ class DValue(MongoModel):
 
 
 class DLog(MongoModel):
-    id: Optional[ObjectIdStr] = Field(None, alias="_id")
+    id: ObjectIdStr | None = Field(None, alias="_id")
     category: str
-    data: Optional[Any]
+    data: Any | None
     created_at: datetime = Field(default_factory=utc_now)
 
     __collection__ = "dlog"

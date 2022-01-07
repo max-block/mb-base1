@@ -28,7 +28,7 @@ def load_requirements(f_name: str) -> list:
 setuptools.setup(
     name="mb-base1",
     version=find_version("mb_base1/__init__.py"),
-    python_requires=">=3.9",
+    python_requires=">=3.10",
     packages=["mb_base1"],
     install_requires=load_requirements("requirements.txt"),
     extras_require={"dev": load_requirements("requirements-dev.txt")},

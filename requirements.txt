@@ -8,4 +8,4 @@ uvicorn[standard]==0.16.0
 gunicorn==20.1.0
 pyTelegramBotAPI==4.2.2
 pyee==8.2.2
-mb-std>=0.1.0
+mb-std~=0.2.0

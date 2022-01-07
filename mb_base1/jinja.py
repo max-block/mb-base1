@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from datetime import datetime
 from enum import Enum
 from functools import partial
-from typing import Callable, Optional, Type, Union
+from typing import Callable, Type
 
 from jinja2 import ChoiceLoader, Environment, PackageLoader
 from markupsafe import Markup
@@ -23,7 +23,7 @@ def dlog_data_truncate(data) -> str:
     return res
 
 
-def timestamp(value: Optional[Union[datetime, int]], format_: str = "%Y-%m-%d %H:%M:%S") -> str:
+def timestamp(value: datetime | int | None, format_: str = "%Y-%m-%d %H:%M:%S") -> str:
     if isinstance(value, datetime):
         return value.strftime(format_)
     if isinstance(value, int):
@@ -82,7 +82,7 @@ def raise_(msg):
     raise Exception(msg)
 
 
-def form_choices(choices: Union[list[str], Type[Enum]], title=""):
+def form_choices(choices: list[str] | Type[Enum], title=""):
     result = []
     if title:
         result.append(("", title + "..."))
@@ -97,11 +97,11 @@ def form_choices(choices: Union[list[str], Type[Enum]], title=""):
 
 @dataclass
 class CustomJinja:
-    header_info: Optional[Callable] = None
+    header_info: Callable | None = None
     header_info_new_line: bool = False
-    footer_info: Optional[Callable] = None
-    filters: Optional[dict] = None
-    globals: Optional[dict] = None
+    footer_info: Callable | None = None
+    filters: dict | None = None
+    globals: dict | None = None
 
 
 def _default_info(_app):
@@ -141,7 +141,7 @@ class Templates:
 
         self.env = env
 
-    def render(self, request: Request, template_name: str, data: Optional[dict] = None) -> HTMLResponse:
+    def render(self, request: Request, template_name: str, data: dict | None = None) -> HTMLResponse:
         if not data:
             data = {"request": request}
         else:

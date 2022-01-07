@@ -1,6 +1,5 @@
 import functools
 from threading import Thread
-from typing import Optional
 
 from telebot import TeleBot
 from telebot.types import Message
@@ -16,12 +15,12 @@ class BaseTelegram:
 
     def __init__(self, app: App):
         self.app = app
-        self.bot: Optional[TeleBot] = None
+        self.bot: TeleBot | None = None
         self.is_started = False
         self.admins: list[int] = []
 
     @synchronized
-    def start(self) -> Optional[str]:
+    def start(self) -> str | None:
         """
         Telegram bot can be started only if these bot settings are set:
         - telegram_token

@@ -1,5 +1,3 @@
-from typing import Optional
-
 from fastapi import APIRouter
 from mb_std import md
 from mb_std.mongo import make_query
@@ -11,7 +9,7 @@ def init(app: BaseApp) -> APIRouter:
     router = APIRouter()
 
     @router.get("")
-    def get_dlogs(category: Optional[str] = None, limit: int = 100):
+    def get_dlogs(category: str | None = None, limit: int = 100):
         q = make_query(category=category)
         return app.dlog_collection.find(q, "-created_at", limit=limit)
 

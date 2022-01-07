@@ -3,7 +3,7 @@ from __future__ import annotations
 import itertools
 from dataclasses import dataclass
 from decimal import Decimal
-from typing import Any, Callable, Union
+from typing import Any, Callable
 
 import pydash
 import yaml
@@ -19,7 +19,7 @@ from mb_base1.utils import get_registered_attributes
 class DC:
     _counter = itertools.count()
 
-    def __init__(self, value: Union[str, int, float, bool, Decimal], description="", hide=False):
+    def __init__(self, value: str | int | float | bool | Decimal, description="", hide=False):
         self.value = value
         self.description = description
         self.hide = hide
@@ -76,7 +76,7 @@ class DConfigInitValue:
     key: str
     order: int
     description: str
-    value: Union[str, int, float, bool]
+    value: str | int | float | bool
 
 
 class DConfigService:

@@ -2,7 +2,7 @@ import json
 import traceback
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Callable, Optional
+from typing import Callable
 
 from fastapi import APIRouter, Depends, FastAPI, Form, HTTPException, Security
 from fastapi.openapi.docs import get_swagger_ui_html
@@ -195,7 +195,7 @@ class Server:
             request: Request,
             url: str,
             method: str,
-            data: Optional[str] = None,
+            data: str | None = None,
             api_key: APIKey = Depends(self._get_api_key()),
         ):
             """Deprecated"""
