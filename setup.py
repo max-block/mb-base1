@@ -29,10 +29,10 @@ setuptools.setup(
         "python-multipart==0.0.5",
         "uvicorn[standard]==0.16.0",
         "gunicorn==20.1.0",
-        "pyTelegramBotAPI==4.2.2",
+        "pyTelegramBotAPI==4.3.0",
         "pyee==8.2.2",
         "mb-std~=0.2.0",
     ],
     extras_require={"dev": ["pytest==6.2.5", "pre-commit==2.16.0", "wheel==0.37.1", "twine==3.7.1", "pip-audit==1.1.1"]},
-    include_package_data=True,
+    package_data={"": ["*.js", "*.css", "*.ico", "*.j2"]},
 )

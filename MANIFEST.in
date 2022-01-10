@@ -1,2 +1,1 @@
 recursive-include mb_base1 *.py *.js *.css *.ico *.j2
-include requirements*.txt

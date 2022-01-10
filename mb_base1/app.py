@@ -29,11 +29,7 @@ class BaseApp:
         self.dconfig_collection: MongoCollection[DConfig] = DConfig.init_collection(self.database)
         self.dvalue_collection: MongoCollection[DValue] = DValue.init_collection(self.database)
         self.dlog_collection: MongoCollection[DLog] = DLog.init_collection(self.database)
-        self.dconfig: DConfigSettings = DConfigService.init_storage(
-            self.dconfig_collection,
-            dconfig_settings,
-            self.dlog,
-        )
+        self.dconfig: DConfigSettings = DConfigService.init_storage(self.dconfig_collection, dconfig_settings, self.dlog)
         self.dvalue: DValueSettings = DValueService.init_storage(self.dvalue_collection, dvalue_settings)
         self.scheduler = self.init_scheduler()
         self.dconfig_service = DConfigService

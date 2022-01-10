@@ -35,10 +35,7 @@ def send_telegram_message(token: str, chat_id: int, message: str) -> Result[bool
     try:
         for text in split_string(message, 4096):
             bot.send_message(chat_id, text)
-            time.sleep(1)
+            time.sleep(3)
         return Result(ok=True)
     except Exception as e:
         return Result(error=str(e))
-    finally:
-        bot.stop_bot()
-        bot.close()

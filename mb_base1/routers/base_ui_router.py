@@ -95,10 +95,12 @@ def init(app: BaseApp, templates: Templates, telegram: BaseTelegram) -> APIRoute
         return redirect("/dvalue")
 
     @router.post("/update-dconfig-multiline/{key}")
-    def update_dconfig_multiline(key, form_data=depends_form):
+    def update_dconfig_multiline(req: Request, key, form_data=depends_form):
         form = UpdateDConfigMultilineForm(form_data)
         if form.validate():
-            return app.dconfig_service.update_multiline(key, form.data["value"])
+            app.dconfig_service.update_multiline(key, form.data["value"])
+            flash(req, f"dconfig '{key}' was updated")
+            return redirect(f"/update-dconfig-multiline/{key}")
         return {"errors": form.errors}
 
     return router
