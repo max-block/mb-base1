@@ -19,7 +19,7 @@ setuptools.setup(
     name="mb-base1",
     version=find_version("mb_base1/__init__.py"),
     python_requires=">=3.10",
-    packages=setuptools.find_packages(exclude=("app", "tests")),
+    packages=["mb_base1"],
     install_requires=[
         "fastapi==0.71.0",
         "Jinja2==3.0.3",
@@ -34,5 +34,5 @@ setuptools.setup(
         "mb-std~=0.2.0",
     ],
     extras_require={"dev": ["pytest==6.2.5", "pre-commit==2.16.0", "wheel==0.37.1", "twine==3.7.1", "pip-audit==1.1.1"]},
-    package_data={"": ["*.js", "*.css", "*.ico", "*.j2"]},
+    include_package_data=True,
 )
