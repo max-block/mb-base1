@@ -19,7 +19,7 @@ setuptools.setup(
     name="mb-base1",
     version=find_version("mb_base1/__init__.py"),
     python_requires=">=3.10",
-    packages=["mb_base1"],
+    packages=setuptools.find_packages(exclude=("app", "tests")),
     install_requires=[
         "fastapi==0.71.0",
         "Jinja2==3.0.3",
