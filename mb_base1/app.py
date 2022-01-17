@@ -49,9 +49,7 @@ class BaseApp:
         if token and chat_id:
             send_telegram_message(token, chat_id, message)
 
-    def init_scheduler(
-        self,
-    ) -> Scheduler:
+    def init_scheduler(self) -> Scheduler:
         scheduler = Scheduler(self.logger)
         scheduler.start()
         self.logger.debug("scheduler started")
