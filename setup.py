@@ -31,7 +31,7 @@ setuptools.setup(
         "gunicorn==20.1.0",
         "pyTelegramBotAPI==4.4.0",
         "pyee==9.0.4",
-        "mb-std~=0.2.0",
+        "mb-std~=0.3.0",
     ],
     extras_require={"dev": ["pytest==7.0.0", "pre-commit==2.17.0", "wheel==0.37.1", "twine==3.8.0", "pip-audit==1.1.2"]},
     include_package_data=True,
