@@ -6,7 +6,6 @@ builtins
 isort
 autoflake
 mypy
-hrequest
 pymongo
 pydantic
 starlette

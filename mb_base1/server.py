@@ -9,7 +9,7 @@ from fastapi.openapi.docs import get_swagger_ui_html
 from fastapi.openapi.models import APIKey
 from fastapi.openapi.utils import get_openapi
 from fastapi.security import APIKeyCookie, APIKeyHeader, APIKeyQuery
-from mb_std import hrequest
+from mb_std import hr
 from starlette import status
 from starlette.middleware import Middleware
 from starlette.middleware.sessions import SessionMiddleware
@@ -168,7 +168,7 @@ class Server:
                     q += f"{k}={v}&"
                 url += f"?{q}"
             headers = {self.api_key_name: api_key}
-            res = hrequest(url, method="post", headers=headers, params=dict(request.query_params), timeout=600)
+            res = hr(url, method="post", headers=headers, params=dict(request.query_params), timeout=600)
             if res.json:
                 return res.json
             return res.body
@@ -185,7 +185,7 @@ class Server:
                     q += f"{k}={v}&"
                 url += f"?{q}"
             headers = {self.api_key_name: api_key}
-            res = hrequest(url, method="delete", headers=headers, params=dict(request.query_params), timeout=600)
+            res = hr(url, method="delete", headers=headers, params=dict(request.query_params), timeout=600)
             if res.json:
                 return res.json
             return res.body
@@ -208,7 +208,7 @@ class Server:
             params = None
             if data:
                 params = json.loads(data)
-            res = hrequest(url, method=method, headers=headers, params=params, timeout=600)
+            res = hr(url, method=method, headers=headers, params=params, timeout=600)
             if res.json:
                 return res.json
             return res.body
