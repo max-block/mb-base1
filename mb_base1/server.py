@@ -162,6 +162,8 @@ class Server:
             if not base_url.endswith("/"):
                 base_url = base_url + "/"
             url = base_url + "api/" + url
+            if self.app.app_config.use_https:
+                url = url.replace("http://", "https://", 1)
             if request.query_params:
                 q = ""
                 for k, v in request.query_params.items():
@@ -179,6 +181,8 @@ class Server:
             if not base_url.endswith("/"):
                 base_url = base_url + "/"
             url = base_url + "api/" + url
+            if self.app.app_config.use_https:
+                url = url.replace("http://", "https://", 1)
             if request.query_params:
                 q = ""
                 for k, v in request.query_params.items():
