@@ -36,7 +36,7 @@ class SystemService:
 
         db_stats = {}
         for col in self.database.list_collection_names():
-            db_stats[col] = self.database[col].count_documents({})
+            db_stats[col] = self.database[col].estimated_document_count()
 
         return {
             "db": db_stats,
