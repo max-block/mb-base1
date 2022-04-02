@@ -2,6 +2,8 @@ from dataclasses import dataclass
 from logging import Logger
 from typing import Any, Callable
 
+from mb_std import Result
+
 from app.config import DConfigSettings, DValueSettings
 from mb_base1.config import BaseAppConfig
 
@@ -13,7 +15,7 @@ class BaseServiceParams:
     dconfig: DConfigSettings
     dvalue: DValueSettings
     dlog: Callable[[str, Any], None]
-    send_telegram_message: Callable[[str], None]
+    send_telegram_message: Callable[[str], Result[list[int]]]
 
 
 class BaseService:

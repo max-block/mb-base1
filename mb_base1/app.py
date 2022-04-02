@@ -1,7 +1,7 @@
 import logging
 import os
 
-from mb_std import Scheduler
+from mb_std import Result, Scheduler, send_telegram_message
 from mb_std.logging import init_logger
 from mb_std.mongo import MongoCollection, MongoConnection
 from pymongo.database import Database
@@ -12,7 +12,6 @@ from mb_base1.services.base import BaseServiceParams
 from mb_base1.services.dconfig_service import DConfigService
 from mb_base1.services.dvalue_service import DValueService
 from mb_base1.services.system_service import SystemService
-from mb_base1.utils import send_telegram_message
 
 
 class BaseApp:
@@ -43,11 +42,12 @@ class BaseApp:
     def dlog(self, category: str, data=None):
         self.dlog_collection.insert_one(DLog(category=category, data=data))
 
-    def send_telegram_message(self, message: str):
+    def send_telegram_message(self, message: str) -> Result[list[int]]:
         token = self.dconfig.get("telegram_token")
         chat_id = self.dconfig.get("telegram_chat_id")
         if token and chat_id:
-            send_telegram_message(token, chat_id, message)
+            return send_telegram_message(token, chat_id, message)
+        return Result.new_error("token or chat_id is not set")
 
     def init_scheduler(self) -> Scheduler:
         scheduler = Scheduler(self.logger)
