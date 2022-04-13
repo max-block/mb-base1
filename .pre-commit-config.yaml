@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.1.0
+    rev: v4.2.0
     hooks:
       - id: end-of-file-fixer
       - id: trailing-whitespace
@@ -19,7 +19,7 @@ repos:
           - flake8-tidy-imports
 
   - repo: https://github.com/psf/black
-    rev: 22.1.0
+    rev: 22.3.0
     hooks:
       - id: black
 
@@ -28,8 +28,8 @@ repos:
     hooks:
       - id: isort
 
-  - repo: https://github.com/humitos/mirrors-autoflake
-    rev: v1.3
+  - repo: https://github.com/PyCQA/autoflake
+    rev: v1.4
     hooks:
       - id: autoflake
         args: ['--in-place', '--remove-all-unused-imports']
