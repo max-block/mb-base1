@@ -29,9 +29,9 @@ setuptools.setup(
         "python-multipart==0.0.5",
         "uvicorn[standard]==0.17.6",
         "gunicorn==20.1.0",
-        "pyTelegramBotAPI==4.4.1",
-        "mb-std~=0.4.2",
+        "pyTelegramBotAPI==4.5.0",
+        "mb-std~=0.4.3",
     ],
-    extras_require={"dev": ["pytest==7.1.1", "pre-commit==2.18.1", "wheel==0.37.1", "twine==4.0.0", "pip-audit==2.1.1"]},
+    extras_require={"dev": ["pytest==7.1.2", "pre-commit==2.18.1", "wheel==0.37.1", "twine==4.0.0", "pip-audit==2.1.1"]},
     include_package_data=True,
 )
