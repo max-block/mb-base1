@@ -128,8 +128,8 @@ class Server:
                 value=api_key,
                 domain=self.app.app_config.domain,
                 httponly=True,
+                secure=True,
                 max_age=60 * 60 * 24 * 30,
-                expires=60 * 60 * 24 * 30,
             )
             return response
 
