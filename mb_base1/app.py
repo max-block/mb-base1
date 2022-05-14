@@ -40,6 +40,7 @@ class BaseApp:
             self.dlog("app_start")
 
     def dlog(self, category: str, data=None):
+        self.logger.debug("dlog %s %s", category, data)
         self.dlog_collection.insert_one(DLog(category=category, data=data))
 
     def send_telegram_message(self, message: str) -> Result[list[int]]:
