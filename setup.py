@@ -21,7 +21,7 @@ setuptools.setup(
     python_requires=">=3.10",
     packages=["mb_base1"],
     install_requires=[
-        "fastapi==0.77.1",
+        "fastapi==0.78.0",
         "Jinja2==3.1.2",
         "aiofiles==0.8.0",
         "itsdangerous==2.1.2",
@@ -30,7 +30,7 @@ setuptools.setup(
         "uvicorn[standard]==0.17.6",
         "gunicorn==20.1.0",
         "pyTelegramBotAPI==4.5.1",
-        "mb-std~=0.4.5",
+        "mb-std~=0.4.6",
     ],
     extras_require={"dev": ["pytest==7.1.2", "pre-commit==2.19.0", "wheel==0.37.1", "twine==4.0.0", "pip-audit==2.2.1"]},
     include_package_data=True,
